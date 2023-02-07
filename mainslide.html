@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>슬라이드</title>
+    <link href="slide.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+
+
+    $(function() {
+  var winW = cnt = setId = 0;
+  resizeFn();
+
+  function resizeFn() {
+    winW = $(window).innerWidth();
+    $(".slide").css({
+      width: winW
+    });
+  };
+
+  $(window).resize(function() {
+    resizeFn();
+  });
+
+  autoplayFn();
+
+  function autoplayFn() {
+    setId = setInterval(nextCountFn, 2500);
+  };
+
+  $(".pageBt").each(function(idx) {
+    $(this).click(function() {
+      clearInterval(setId);
+      cnt = idx;
+      mainslideFn();
+    });
+  });
+
+  function nextCountFn() {
+    cnt++;
+    mainslideFn();
+  };
+
+  function prevCountFn() {
+    cnt--;
+    mainslideFn();
+  };
+
+  function mainslideFn() {
+    $(".slideWrap").stop().animate({
+      left: (-100 * cnt) + "%"
+    }, 600, function() {
+      if (cnt > 3) {
+        cnt = 0;
+      }
+      if (cnt < 0) {
+        cnt = 3
+      }
+      $(".slideWrap").stop().animate({
+        left: (-100 * cnt) + "%"
+      }, 0)
+    });
+    $(".pageBt").removeClass("addPageBt");
+    $(".pageBt").eq(cnt > 3 ? cnt = 0 : cnt).addClass("addPageBt");
+  };
+});
+    </script>
+</head>
+<body >
+<!--슬라이드 구역-->
+<div class="slideContainer">
+  <ul class="slideWrap">
+<!--     이미지로 바꿔야함-->
+    <li class="slide slide4"><p>slide4</p></li>
+    <li class="slide slide1"><p>slide1</p></li>
+    <li class="slide slide2"><p>slide2</p></li>
+    <li class="slide slide3"><p>slide3</p></li>
+    <li class="slide slide4"><p>slide4</p></li>
+    <li class="slide slide1"><p>slide1</p></li>
+  </ul>
+  <ul class="pageBtWrap">
+    <li><a href="#" class="pageBt addPageBt"></a></li>
+    <li><a href="#" class="pageBt"></a></li>
+    <li><a href="#" class="pageBt"></a></li>
+    <li><a href="#" class="pageBt"></a></li>
+  </ul>
+</div>
+
+</body>
+</html>
