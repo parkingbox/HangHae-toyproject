@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.slideContainer {
+  width: 100%;
+  position: relative;
+}
+
+/*-아래 pageBt abosolute로 위치를 잡기 위하여 부모에 position: relative 필요*/
+.slideWrap {
+  width: calc(100%*6);
+  overflow: hidden;
+  margin-left: calc(-100%*1);
+  position: relative;
+  z-index: 1
+}
+
+/*총600장을 나열하기위하여 calc(100%*6) 또는 600%, 맨처음 1번째 이미지 가기위하여 margin-left: calc(-100%*0)*/
+.slide {
+  float: left;
+}
+
+.slide1 {
+  background-color: #0E0E1A;
+}
+
+.slide2 {
+  background-color: #552E2F;
+}
+
+.slide3 {
+  background-color: #585A32;
+}
+
+.slide4 {
+  background-color: #26474C;
+}
+
+.slide p {
+
+  height: 150px;
+  font-size: 66px;
+  font-weight: 600;
+  color: #F9B514;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.pageBtWrap {
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  bottom: 7%;
+  width: 100%;
+  text-align: center;
+}
+
+.pageBtWrap li {
+  display: inline;
+}
+
+/*부모요소를 text-align: center, li를 inline요소로 바꿔 중간 정렬, float: left 사용할 필요없음*/
+.pageBtWrap li .pageBt {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-left: 10px;
+  background-color: #fff;
+}
+
+.pageBtWrap li .pageBt.addPageBt {
+  background-color: #ff0;
+}
