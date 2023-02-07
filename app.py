@@ -1,3 +1,4 @@
+import sys, json
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
@@ -12,14 +13,29 @@ db = client.gofestival
 def home():
   return render_template('detail.html')
 
+@app.route('/login', methods=["POST"])
+def login():
+  id = request.form['id']
+  pw = request.form['pw']
+  doc ={
+    'id': id,
+    'pw': pw,
+  }
+  db.users.insert_one(doc)
+  return jsonify({'msg':'로그인 성공'})
+
 @app.route('/savedata', methods=["POST"])
 def data_post():
-  data = request.form
-  print(data)
-  for i in data:
+  data = request.form.getlist('data')
+  parsedata = json.loads(data[0])
+  # print("@@", parsedata, file=sys.stderr)
+  # print("@@", data[0], file=sys.stderr)
+
+  for i in parsedata:
+    # print("!!!!!", parsedata[i], file=sys.stderr)
     contentid = i['contentid']
-    add1 = i['add1']
-    add2 = i['add2']
+    addr1 = i['addr1']
+    addr2 = i['addr2']
     eventstartdate = i['eventstartdate']
     eventenddate = i['eventenddate']
     firstimage= i['firstimage']
@@ -31,18 +47,18 @@ def data_post():
     title= i['title']
   
     doc = {
-      contentid,
-      add1,
-      add2,
-      eventstartdate,
-      eventenddate,
-      firstimage,
-      firstimage2,
-      mapx,
-      mapy,
-      modifiedtime,
-      tel,
-      title,
+      'contentid': contentid,
+      'addr1': addr1,
+      'addr2': addr2,
+      'eventstartdate': eventstartdate,
+      'eventenddate': eventenddate,
+      'firstimage': firstimage,
+      'firstimage2': firstimage2,
+      'mapx': mapx,
+      'mapy': mapy,
+      'modifiedtime': modifiedtime,
+      'tel': tel,
+      'title': title,
     }
 
     db.detail.insert_one(doc)
