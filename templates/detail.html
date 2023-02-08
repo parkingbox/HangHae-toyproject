@@ -9,79 +9,11 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../public/css/detail.css">
+  <link rel="stylesheet" href="../static/css/detail.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <!-- <script src="./js/detail.js"></script> -->
-  <script>
-    $(document).ready(function() {
-      listing();
-    });
-
-    function show_content() {
-      $.ajax({
-        type: "GET",
-        url: "https://apis.data.go.kr/B551011/KorService/searchFestival?serviceKey=3WzdkvGaFztwuuD7uF0oPJSKUGEAJWkLJ9PJTYi2ChGhlwpqlsLOuur%2BTg2dkymt6IRTj3QgSlIBa5wDGLNQPg%3D%3D&numOfRows=978&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=C&eventStartDate=20220701",
-        data: {},
-        success: function(res) {
-          const data = res.response.body.items.item;
-          console.log(data);
-          // console.log(res.response.body.items.item[0]);
-        },
-      });
-    }
-
-    function save_data() {
-      let data = [];
-      $.ajax({
-        type: "GET",
-        url: "https://apis.data.go.kr/B551011/KorService/searchFestival?serviceKey=3WzdkvGaFztwuuD7uF0oPJSKUGEAJWkLJ9PJTYi2ChGhlwpqlsLOuur%2BTg2dkymt6IRTj3QgSlIBa5wDGLNQPg%3D%3D&numOfRows=978&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=C&eventStartDate=20220701",
-        data: {},
-        success: function(res) {
-          // console.log(res)
-          data = res.response.body.items.item;
-          // console.log(data);
-          // console.log(res.response.body.items.item[0]);
-        },
-      });
-
-      setTimeout(() => {
-        // console.log("$$", data)
-        $.ajax({
-          type: "POST",
-          // contentType: 'application/json',
-          dataType: 'json',
-          // data: JSON.stringify(data),
-          data: {
-            data: JSON.stringify(data),
-          },
-          // traditional: true,
-          url: "/savedata",
-          success: function(res) {
-            console.log(data)
-            alert(res["msg"]);
-          },
-        });
-      }, 1000);
-    }
-
-    function login() {
-      let id = $('#id').val()
-      let pw = $('#pw').val()
-
-      $.ajax({
-        type: 'POST',
-        url: '/login',
-        data: {
-          id: id,
-          pw: pw
-        },
-        success: function(response) {
-          alert(response['msg'])
-          window.location.reload()
-        }
-      });
-    }
-  </script>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9943d403d9bf3ae9286778e8bb29358b"></script>
+  <script src="../static/js/detail.js"></script>
+  <script src="https://kit.fontawesome.com/8924a45e02.js" crossorigin="anonymous"></script>
   <title>상세페이지</title>
 </head>
 
@@ -89,12 +21,17 @@
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand mx-3" href="#">GoFestival</a>
-      <div class="mx-5">login</div>
+      <a class="mx-5" href="#">login</a>
     </div>
+    <!-- <div>{{param}}</div> -->
+    <script>
+      get_data('{{param}}')
+    </script>
+    <!-- {% print(param) %} -->
     <!-- 데이터 확인 버튼 -->
-    <button onclick="show_content()">click</button>
+    <!-- <button onclick="show_content()">click</button> -->
     <!-- 데이터 저장 버튼 -->
-    <button onclick="save_data()">save_btn</button>
+    <!-- <button onclick="save_data()">save_btn</button> -->
   </nav>
   <!-- <div class="login mt-3">
     <div class="input-group mb-3">
@@ -110,18 +47,32 @@
   <div class="container">
     <div class="section">
       <div class="poster">
-        <img src="" alt="">
       </div>
       <div class="info">
-        <ul>
-          <li>title</li>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-        </ul>
+        <div class="info_data"></div>
+        <div class="comment">
+          <ul>
+            <li>
+              <div class="icon"><i class="fa-solid fa-heart" style="color:red"></i></div>
+              <div>좋아요</div>
+            </li>
+            <li>
+              <div class="icon"><i class="fa-solid fa-star"></i></div>
+              <div>댓글쓰기</div>
+            </li>
+            <li>
+              <div class="kakao icon"><i class="fa-solid fa-comments" style="color:#401D1D"></i></div>
+              <div>카카오 공유</div>
+            </li>
+            <li>
+              <div class="icon"><i class="fa-solid fa-share" style="color:#1A8754"></i></div>
+              <div>URL 공유</div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="map">map</div>
+    <div id="map">map</div>
   </div>
 
 </body>
