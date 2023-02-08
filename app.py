@@ -11,7 +11,7 @@ db = client.gofestival
 
 @app.route('/')
 def home():
-  return render_template('detail.html')
+  return render_template('index.html')
 
 @app.route('/login', methods=["POST"])
 def login():
@@ -24,6 +24,7 @@ def login():
   db.users.insert_one(doc)
   return jsonify({'msg':'로그인 성공'})
 
+# open api 저장
 @app.route('/savedata', methods=["POST"])
 def data_post():
   data = request.form.getlist('data')
@@ -32,38 +33,51 @@ def data_post():
   # print("@@", data[0], file=sys.stderr)
 
   for i in parsedata:
+    if i['firstimage'] != "":
     # print("!!!!!", parsedata[i], file=sys.stderr)
-    contentid = i['contentid']
-    addr1 = i['addr1']
-    addr2 = i['addr2']
-    eventstartdate = i['eventstartdate']
-    eventenddate = i['eventenddate']
-    firstimage= i['firstimage']
-    firstimage2= i['firstimage2']
-    mapx = i['mapx']
-    mapy = i['mapy']
-    modifiedtime= i['modifiedtime']
-    tel= i['tel']
-    title= i['title']
-  
-    doc = {
-      'contentid': contentid,
-      'addr1': addr1,
-      'addr2': addr2,
-      'eventstartdate': eventstartdate,
-      'eventenddate': eventenddate,
-      'firstimage': firstimage,
-      'firstimage2': firstimage2,
-      'mapx': mapx,
-      'mapy': mapy,
-      'modifiedtime': modifiedtime,
-      'tel': tel,
-      'title': title,
-    }
+      contentid = i['contentid']
+      addr1 = i['addr1']
+      addr2 = i['addr2']
+      eventstartdate = i['eventstartdate']
+      eventenddate = i['eventenddate']
+      firstimage= i['firstimage']
+      firstimage2= i['firstimage2']
+      mapx = i['mapx']
+      mapy = i['mapy']
+      modifiedtime= i['modifiedtime']
+      tel= i['tel']
+      title= i['title']
+    
+      doc = {
+        'contentid': contentid,
+        'addr1': addr1,
+        'addr2': addr2,
+        'eventstartdate': eventstartdate,
+        'eventenddate': eventenddate,
+        'firstimage': firstimage,
+        'firstimage2': firstimage2,
+        'mapx': mapx,
+        'mapy': mapy,
+        'modifiedtime': modifiedtime,
+        'tel': tel,
+        'title': title,
+      }
 
-    db.detail.insert_one(doc)
+      db.detail.insert_one(doc) 
   
   return jsonify({'msg': '!!'})
+
+
+@app.route("/detail/<param>")
+def student(param):
+    return render_template("detail.html")
+
+@app.route("/detail/<param>", methods=["POST"])
+def get_data(param):
+    contentid = param
+    print(contentid,file=sys.stderr)
+    detail_data = db.detail.find_one({'contentid': contentid},{'_id':False})
+    return jsonify({'data': detail_data})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=4000, debug=True)
