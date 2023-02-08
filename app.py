@@ -69,8 +69,9 @@ def data_post():
 
 
 @app.route("/detail/<param>")
-def student(param):
-    return render_template("detail.html")
+def detail(param):
+    # print(param,file=sys.stderr)
+    return render_template("detail.html", param=param)
 
 @app.route("/detail/<param>", methods=["POST"])
 def get_data(param):
