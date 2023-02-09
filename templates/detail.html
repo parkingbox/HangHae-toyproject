@@ -25,16 +25,17 @@
       show_coment();
     });
 
-    function show_coment() {
+    function show_coment(param) {
+      console.log(param)
       $('#coment-list').empty()
       $.ajax({
-        type: "GET",
-        url: "/comentt",
-        data: {},
+        type: "POST",
+        url: "/coment",
+        data: { contentid: param },
         success: function (response) {
-          let rows = response['coments']
+          let rows = response['coment']
           for (let i = 0; i < rows.length; i++) {
-            let coment = rows[i]['coments']
+            let coment = rows[i]['coment']
             let num = rows[i]['num']
             let contentid = rows[i]['contentid']
 
@@ -50,13 +51,15 @@
     }
 
 
-    function save_coment() {
+    function save_coment(param) {
+      console.log(param)
       let coment = $('#coment').val()
       $.ajax({
         type: "POST",
-        url: "/coment",
+        url: "/comentsave",
         data: {
-          coment_give: coment
+          coment_give: coment,
+          param_give: param
         },
         success: function (response) {
           alert(response["msg"])
@@ -74,8 +77,11 @@
       <a class="navbar-brand mx-4" href="http://localhost:4000/">GoFestival</a>
       <a class="mx-5" href="#">login</a>
     </div>
-    <!-- <div>{{param}}</div> -->
+    <!-- <div>
+      <h1>{{param}}</h1>
+    </div> -->
     <script>
+      show_coment('{{param}}')
       get_data('{{param}}')
     </script>
     <!-- {% print(param) %} -->
@@ -129,7 +135,7 @@
     <div class="mybox">
       <div class="commentbox">
         <input id="coment" class="form-control" type="text" placeholder="댓글을 입력하세요">
-        <button onclick="save_coment()" type="button" class="btn btn-outline-primary">댓글남기기</button>
+        <button onclick="save_coment('{{param}}')" type="button" class="btn btn-outline-primary">댓글남기기</button>
       </div>
     </div>
     <div class="mybox" id="coment-list">

@@ -29,20 +29,20 @@ def crud():
 # 디테일 댓글 등록
 
 
-@app.route("/coment", methods=["POST"])
+@app.route("/comentsave", methods=["POST"])
 def coment_post():
     coment_receive = request.form["coment_give"]
-
-    count = list(db.detail.find({}, {'_id': False}))
+    param_receive = request.form["param_give"]
+    count = list(db.coment.find({}, {'_id': False}))
     num = len(count) + 1
-
+    # if findparam = param_receive:
     doc = {
         'num': num,
+        'contentid': param_receive,
         'coment': coment_receive,
-
     }
+    db.coment.insert_one(doc)
 
-    db.detail.insert_one(doc)
     return jsonify({'msg': '등록 완료!'})
 
 
@@ -55,9 +55,13 @@ def bucket_done():
 # 댓글 데이터 불러오기
 
 
-@app.route("/coment", methods=["GET"])
+@app.route("/coment", methods=["POST"])
 def coment_get():
-    coment_list = list(db.coments.find({}, {'_id': False}))
+    contentid = request.form['contentid']
+    print(contentid, file=sys.stderr)
+
+    coment_list = list(db.coment.find(
+        {'contentid': contentid}, {'_id': False}))
     return jsonify({'coments': coment_list})
 
 # 삭재버튼
