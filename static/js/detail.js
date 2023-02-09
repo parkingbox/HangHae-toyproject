@@ -9,7 +9,6 @@ function show_content() {
     data: {},
     success: function (res) {
       const data = res.response.body.items.item;
-      console.log(data);
       // console.log(res.response.body.items.item[0]);
     },
   });
@@ -22,7 +21,6 @@ function save_data() {
     url: "https://apis.data.go.kr/B551011/KorService/searchFestival?serviceKey=3WzdkvGaFztwuuD7uF0oPJSKUGEAJWkLJ9PJTYi2ChGhlwpqlsLOuur%2BTg2dkymt6IRTj3QgSlIBa5wDGLNQPg%3D%3D&numOfRows=978&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=C&eventStartDate=20220701",
     data: {},
     success: function (res) {
-      console.log(res);
       data = res.response.body.items.item;
       // console.log(data);
       // console.log(res.response.body.items.item[0]);
@@ -42,19 +40,12 @@ function save_data() {
       // traditional: true,
       url: "/savedata",
       success: function (res) {
-        console.log(data);
         alert(res["msg"]);
       },
     });
   }, 1000);
 }
 
-// $(document).ready(function () {
-//   // var param = {{ param | tojson }};
-//   // console.log(param);
-//   param = 1556203;
-//   get_data(param);
-// });
 
 function get_data(param) {
   console.log(param);

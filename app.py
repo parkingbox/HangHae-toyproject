@@ -1,15 +1,11 @@
 import sys, json
 from flask import Flask, render_template, request, jsonify
-
 app = Flask(__name__)
 
 from pymongo import MongoClient
-import certifi
-ca = certifi.where()
-client = MongoClient('mongodb+srv://test:thals@cluster0.kbk9mgh.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
-db = client.gofestival
+client = MongoClient('mongodb+srv://test:sparta@cluster0.qkuxaox.mongodb.net/Cluster0?retryWrites=true&w=majority')
+db = client.dbsparta
 
-# 이건잘 돌아감
 @app.route('/modify')
 def modify():
   return render_template('modify.html')
@@ -63,11 +59,17 @@ def bucket_modify():
 
 @app.route('/')
 def home():
-  return render_template('list.html')
+  return render_template('useswiper.html')
 
-# @app.route('/')
-# def home():
-#   return render_template('index.html')
+@app.route('/index')
+def index():
+  return render_template('index.html')
+
+# list
+@app.route("/list", methods=["GET"])
+def get_list():
+  list_data = list(db.detail.find({},{'_id':False}))
+  return jsonify({'list': list_data})
 
 @app.route("/showdata", methods=["GET"])
 def festival_get():
@@ -85,19 +87,29 @@ def login():
   db.users.insert_one(doc)
   return jsonify({'msg':'로그인 성공'})
 
+@app.route('/comment', methods=["POST"])
+def comment():
+  count = list(db.comment.find({},{'_id':False}))
+  num = len(count) + 1
+
+  comment = request.form['comment']
+
+  doc ={
+    'num': num,
+    'comment': comment,
+  }
+  db.comment.insert_one(doc)
+  return jsonify({'msg':'댓글 완료'})
+
+
+
 # open api 저장
 @app.route('/savedata', methods=["POST"])
 def data_post():
   data = request.form.getlist('data')
   parsedata = json.loads(data[0])
-
-  # print("@@", parsedata, file=sys.stderr)
-  # print("@@", data[0], file=sys.stderr)
-
   for i in parsedata:
     if i['firstimage'] != "":
-    # print("!!!!!", parsedata[i], file=sys.stderr)
- 
       contentid = i['contentid']
       addr1 = i['addr1']
       addr2 = i['addr2']
@@ -125,11 +137,7 @@ def data_post():
         'tel': tel,
         'title': title,
       }
-
-
-
       db.detail.insert_one(doc) 
-  
   return jsonify({'msg': '!!'})
 
 
