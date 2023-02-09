@@ -4,58 +4,81 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./static/list.css" />
     <script
       src="https://code.jquery.com/jquery-3.6.0.js"
       integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
       crossorigin="anonymous"
     ></script>
-    <title>Document</title>
+    <title>GOPestival</title>
   </head>
-  <img src="" alt="" />
   <body>
-    <input type="date" id="date" /><button id="mybtn">Click!</button>
-    <div class="festival"></div>
-    <script src="index.js">
-      $(document).ready(function() {
-        listing();
-      });
-
-      $(function () {
-        let y = new Date();
-        y.setDate(y.getDate() - 1);
-        let str = y.getFullYear() + "-" + ("0" + (y.getMonth() + 1)).slice(-2) + "-" +
-          ("0" + y.getDate()).slice(-2);
-        $("#date").attr("max", str);
-
-        // 버튼 클릭 이벤트
-        $("#mybtn").click(function () {
-          let d = $("#date").val(); //YYYY-MM-DD
-          const regex = /-/g;
-          let d_str = d.replace(regex, ""); // YYYYMMDD
-          let url =
-            "https://apis.data.go.kr/B551011/KorService/searchFestival?serviceKey=3WzdkvGaFztwuuD7uF0oPJSKUGEAJWkLJ9PJTYi2ChGhlwpqlsLOuur%2BTg2dkymt6IRTj3QgSlIBa5wDGLNQPg%3D%3D&numOfRows=10&pageNo=10&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=C&eventStartDate=" +
-            d_str;
-
-          $.getJSON(url, function (data) {
-            let festivalList = data.response.body.items.item;
-            $("div").empty();
-            for (let i in festivalList) {
+    <!-- <button onclick="save_data()">저장</button> -->
+    <button id="mybtn" onclick="show_content()">Click!</button>
+    <div id="festival"></div>
+    <script>
+      function show_content() {
+        $.ajax({
+          type: "GET",
+          url: "/showdata",
+          data: {},
+          // 데이터가 넘어올때 str 타입으로 넘어옴
+          success: function (res) {
+            const data = res["festivals"];
+            // dictionary 형식으로 변경
+            let alldata = JSON.parse(data);
+            // 랜덤 배열 10개 생성
+            let newData = [];
+            while (alldata.length > 876) {
+              var moveData = alldata.splice(
+                Math.floor(Math.random() * alldata.length),
+                1
+              )[0];
+              newData.push(moveData);
+            }
+            for (let i in newData) {
               $("div").append(
                 "<span>" +
                   "<img class='fes__image' src=" +
-                  festivalList[i].firstimage +
+                  newData[i].firstimage +
                   ">" +
                   "<span class='fes__title'>" +
-                  festivalList[i].title +
+                  newData[i].title +
                   "</span>" +
-                  "" +
                   "</span><br>"
               );
             }
+          },
+        });
+      }
+
+      //  db 저장
+      function save_data() {
+        let data = [];
+        $.ajax({
+          type: "GET",
+          url: "https://apis.data.go.kr/B551011/KorService/searchFestival?serviceKey=3WzdkvGaFztwuuD7uF0oPJSKUGEAJWkLJ9PJTYi2ChGhlwpqlsLOuur%2BTg2dkymt6IRTj3QgSlIBa5wDGLNQPg%3D%3D&numOfRows=978&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=C&eventStartDate=20220701",
+          data: {},
+          success: function (res) {
+            data = res.response.body.items.item;
+          },
+        });
+
+        setTimeout(() => {
+          $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: {
+              data: JSON.stringify(data),
+            },
+            url: "/savedata",
+            success: function (res) {
+              console.log(data);
+              alert(res["msg"]);
+            },
           });
-        }); //click
-      });
+        }, 1000);
+      }
     </script>
   </body>
 </html>
