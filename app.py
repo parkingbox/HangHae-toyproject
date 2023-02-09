@@ -12,7 +12,11 @@ db = client.gofestival
 # 이건잘 돌아감
 @app.route('/modify')
 def modify():
-   return render_template('modify.html')
+  return render_template('modify.html')
+
+@app.route('/crud')
+def crud():
+  return render_template('CRUD.html')
 
 @app.route("/bucket", methods=["POST"])
 def bucket_post():
@@ -41,7 +45,7 @@ def bucket_get():
     buckets_list = list(db.bucket.find({},{'_id':False}))
     return jsonify({'buckets':buckets_list})
 
-#삭재버튼
+# 삭재버튼
 @app.route("/bucket/delete", methods=["POST"])
 def bucket_delete():
     deletenum_receive = request.form["deletenum_give"]
