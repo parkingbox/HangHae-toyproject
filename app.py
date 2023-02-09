@@ -1,5 +1,6 @@
 import sys, json
 from flask import Flask, render_template, request, jsonify
+
 app = Flask(__name__)
 
 from pymongo import MongoClient
@@ -8,10 +9,18 @@ ca = certifi.where()
 client = MongoClient('mongodb+srv://test:thals@cluster0.kbk9mgh.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
 db = client.gofestival
 
+@app.route('/')
+def home():
+  return render_template('list.html')
 
 @app.route('/')
 def home():
   return render_template('index.html')
+
+@app.route("/showdata", methods=["GET"])
+def festival_get():
+    festival_list = list(db.list.find({}, {'_id':False}))
+    return jsonify({'festivals': dumps(festival_list)})
 
 @app.route('/login', methods=["POST"])
 def login():
@@ -29,12 +38,14 @@ def login():
 def data_post():
   data = request.form.getlist('data')
   parsedata = json.loads(data[0])
+
   # print("@@", parsedata, file=sys.stderr)
   # print("@@", data[0], file=sys.stderr)
 
   for i in parsedata:
     if i['firstimage'] != "":
     # print("!!!!!", parsedata[i], file=sys.stderr)
+ 
       contentid = i['contentid']
       addr1 = i['addr1']
       addr2 = i['addr2']
@@ -62,6 +73,8 @@ def data_post():
         'tel': tel,
         'title': title,
       }
+
+
 
       db.detail.insert_one(doc) 
   

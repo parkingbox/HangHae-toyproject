@@ -1,0 +1,54 @@
+button {
+  background: var(--button-bg-color);
+  color: var(--button-color);
+  margin: 0;
+  padding: 0.5rem 1rem;
+
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+
+  border: none;
+  border-radius: 4px;
+
+  display: inline-block;
+  width: auto;
+  height: 35px;
+  width: 70px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  cursor: pointer;
+
+  transition: 0.5s;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  margin: auto;
+  background-color: #ffffff;
+  color: black;
+}
+
+button {
+  --button-color: #212529;
+  --button-bg-color: #ffd54f;
+  --button-hover-bg-color: #c79f28;
+}
+
+.fes__image {
+  width: 200px;
+  height: 200px;
+  display: flex;
+}
+.fes__title {
+  font-size: 15px;
+}
+#festival {
+  display: grid;
+
+  flex-wrap: wrap;
+}
