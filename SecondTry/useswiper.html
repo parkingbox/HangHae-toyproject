@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Swiper demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
   <!-- Link Swiper's CSS -->
@@ -13,31 +14,26 @@
     html,
     body {
       position: relative;
-      height: 100%;
+      /* height: 100%; */
     }
 
     body {
-      background: #E1E3E6;
+      background: black;
       font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      color: #000;
+      /* font-size: 14px;
+      color: #000; */
       margin: 0;
       padding: 0;
     }
 
-    .swiper {
-      width: 100%;
-      height: 100%;
-      margin-left: auto;
-      margin-right: auto;
-    }
+
 
     /*슬라이드 공간 총 크기*/
     .swiper-slide {
       text-align: center;
       font-size: 18px;
-      background: #E1E3E6;
-      /* 협업 컬러 그레이  #E1E3E6 사용 */
+      /* background:  */
+
       display: flex;
       justify-content: center;
       align-items: center;
@@ -45,11 +41,14 @@
 
     /* 포스터 이미지  */
     .swiper-slide img {
-      display: block;
+      /* display: block; */
       width: 40%;
-      height: 100%;
-      object-fit: cover;
+      height: 30%;
+      margin: 4% 0%;
+      /* object-fit: cover; */
     }
+
+
 
     /*일반 페이지바*/
     .swiper-pagination-bullet {
@@ -62,7 +61,8 @@
 
     /*아래 페이지바 활성시*/
     .swiper-pagination-bullet-active {
-      width: 40px;
+
+      width: 30px;
       transition: width .5s;
       border-radius: 5px;
       background: #000000;
@@ -77,29 +77,58 @@
       /* 협업 컬러 노랑사용 #FFD54F */
 
     }
+
+    .slidearea {
+      background-color: #E1E3E6;
+
+      align-items: center;
+      max-width: 100%;
+      /* display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 50%; */
+    }
+
+    .swiper {
+      /* 협업 컬러 그레이  #E1E3E6 사용 */
+      /* background-color: #E1E3E6;
+      margin: 20%;
+      min-width: 500px; */
+      /* width: 100%;
+      height: 100%;
+      margin-left: auto;
+      margin-right: auto; */
+    }
   </style>
 </head>
 
 <body>
-  <!-- Swiper바디 -->
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="https://i.pinimg.com/550x/99/c1/86/99c186e4a9f87edaa4e08b8b5c9b95af.jpg">
-      </div>
-      <div class="swiper-slide"><img src="https://www.danyang.go.kr/File/Download/06254fd6c8411c547f89d5da4063bdf1">
-      </div>
-      <div class="swiper-slide"><img src="http://www.jonghapnews.com/news/photo/201804/263085_157243_5839.jpg"></div>
+  <div class="slidearea">
+    <!-- Swiper바디 -->
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://i.pinimg.com/550x/99/c1/86/99c186e4a9f87edaa4e08b8b5c9b95af.jpg">
+        </div>
+        <div class="swiper-slide"><img src="https://www.danyang.go.kr/File/Download/06254fd6c8411c547f89d5da4063bdf1">
+        </div>
+        <div class="swiper-slide"><img src="http://www.jonghapnews.com/news/photo/201804/263085_157243_5839.jpg">
+        </div>
+        <div class="swiper-slide"><img src="https://i.pinimg.com/736x/81/23/8c/81238cadc2780dcbc5ddc61f5ab06238.jpg">
+        </div>
 
 
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
     </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-pagination"></div>
+
   </div>
+
 
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
   <!-- Initialize Swiper -->
   <script>
     var swiper = new Swiper(".mySwiper", {
