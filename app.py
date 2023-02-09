@@ -26,21 +26,23 @@ def modify():
 def crud():
     return render_template('CRUD.html')
 
+# 디테일 댓글 등록
 
-@app.route("/bucket", methods=["POST"])
-def bucket_post():
-    bucket_receive = request.form["bucket_give"]
 
-    count = list(db.bucket.find({}, {'_id': False}))
+@app.route("/coment", methods=["POST"])
+def coment_post():
+    coment_receive = request.form["coment_give"]
+
+    count = list(db.detail.find({}, {'_id': False}))
     num = len(count) + 1
 
     doc = {
         'num': num,
-        'bucket': bucket_receive,
-        'done': 0
+        'coment': coment_receive,
+
     }
 
-    db.bucket.insert_one(doc)
+    db.detail.insert_one(doc)
     return jsonify({'msg': '등록 완료!'})
 
 
@@ -50,11 +52,13 @@ def bucket_done():
     db.bucket.update_one({'num': int(num_receive)}, {'$set': {'done': 1}})
     return jsonify({'msg': '버킷 완료!'})
 
+# 댓글 데이터 불러오기
 
-@app.route("/bucket", methods=["GET"])
-def bucket_get():
-    buckets_list = list(db.bucket.find({}, {'_id': False}))
-    return jsonify({'buckets': buckets_list})
+
+@app.route("/coment", methods=["GET"])
+def coment_get():
+    coment_list = list(db.coments.find({}, {'_id': False}))
+    return jsonify({'coments': coment_list})
 
 # 삭재버튼
 

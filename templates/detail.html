@@ -18,6 +18,54 @@
   <script src="../static/js/detail.js"></script>
   <script src="https://kit.fontawesome.com/8924a45e02.js" crossorigin="anonymous"></script>
   <title>상세페이지</title>
+
+
+  <script>
+    $(document).ready(function () {
+      show_coment();
+    });
+
+    function show_coment() {
+      $('#coment-list').empty()
+      $.ajax({
+        type: "GET",
+        url: "/comentt",
+        data: {},
+        success: function (response) {
+          let rows = response['coments']
+          for (let i = 0; i < rows.length; i++) {
+            let coment = rows[i]['coments']
+            let num = rows[i]['num']
+            let contentid = rows[i]['contentid']
+
+            let temp_html = `<li>
+        <h2>✅${coment}</h2>
+        <button onclick="done_bucket(5)" type="button" class="btn btn-outline-primary">완료!</button>
+      </li>`
+
+            $('#coment-list').append(temp_html)
+          }
+        }
+      });
+    }
+
+
+    function save_coment() {
+      let coment = $('#coment').val()
+      $.ajax({
+        type: "POST",
+        url: "/coment",
+        data: {
+          coment_give: coment
+        },
+        success: function (response) {
+          alert(response["msg"])
+          window.location.reload()
+        }
+      });
+    }
+  </script>
+
 </head>
 
 <body>
@@ -76,6 +124,30 @@
       </div>
     </div>
     <div id="map">map</div>
+
+    <!-- 댓글사용 -->
+    <div class="mybox">
+      <div class="commentbox">
+        <input id="coment" class="form-control" type="text" placeholder="댓글을 입력하세요">
+        <button onclick="save_coment()" type="button" class="btn btn-outline-primary">댓글남기기</button>
+      </div>
+    </div>
+    <div class="mybox" id="coment-list">
+      <li>
+        <h2>✅ 호주에서 스카이다이빙 하기</h2>
+        <button onclick="done_bucket(5)" type="button" class="btn btn-outline-primary">완료!</button>
+      </li>
+      <li>
+        <h2 class="done">✅ 호주에서 스카이다이빙 하기</h2>
+        <button type="button" class="btn btn-outline-primary">완료!</button>
+      </li>
+      <li>
+        <h2>✅ 호주에서 스카이다이빙 하기</h2>
+        <button type="button" class="btn btn-outline-primary">완료!</button>
+      </li>
+    </div>
+
+    <!--  -->
   </div>
 
 </body>
