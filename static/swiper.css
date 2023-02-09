@@ -29,8 +29,8 @@ body {
 /* 포스터 이미지  */
 .swiper-slide img {
   /* display: block; */
-  width: 40%;
-  height: 30%;
+  width: 30%;
+  height: 200%;
   margin: 4% 0%;
   /* object-fit: cover; */
 }

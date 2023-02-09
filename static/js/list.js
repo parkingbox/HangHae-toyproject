@@ -3,6 +3,7 @@ $(document).ready(function () {
 });
 
 function listing() {
+
   $.ajax({
     type: "GET",
     url: "/list",
@@ -24,6 +25,20 @@ function listing() {
                             </div>
                           </a>`;
         $("#card-box").append(temp_html);
+      }
+      for (let i = 16; i < 20; i++) {
+        let contentid = list[i]["contentid"];
+        let img = list[i]["firstimage"];
+        ;
+        let temp_html = `
+        
+        <div  class="swiper-slide"><img src="${img}" style=" cursor: pointer;"
+        onclick="location.href='/detail/${contentid}';">
+        </div>
+        
+        `;
+
+        $("#recomendarea").append(temp_html);
       }
     },
   });
