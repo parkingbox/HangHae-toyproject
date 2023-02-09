@@ -14,7 +14,7 @@
   </head>
   <body>
     <!-- <button onclick="save_data()">저장</button> -->
-    <button id="mybtn" onclick="show_content()">Click!</button>
+    <button onclick="show_content()">Click!</button>
     <div id="festival"></div>
     <script>
       function show_content() {
@@ -30,7 +30,7 @@
             // 랜덤 배열 10개 생성
             let newData = [];
             while (alldata.length > 876) {
-              var moveData = alldata.splice(
+              let moveData = alldata.splice(
                 Math.floor(Math.random() * alldata.length),
                 1
               )[0];

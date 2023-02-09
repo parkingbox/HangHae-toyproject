@@ -1,22 +1,6 @@
-input {
-  background-color: #ffffff;
-  border-radius: 4px;
-  margin-right: 10px;
-  border: 1px solid #e1e3e6;
-  height: 35px;
-  width: 100px;
-  margin-bottom: 4px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-input:hover {
-  background-color: #e1e3e6;
-}
-
 button {
   background: var(--button-bg-color);
   color: var(--button-color);
-
   margin: 0;
   padding: 0.5rem 1rem;
 
@@ -31,7 +15,7 @@ button {
   display: inline-block;
   width: auto;
   height: 35px;
-
+  width: 70px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
@@ -41,11 +25,14 @@ button {
 }
 
 body {
-  
+  height: 100%;
+  width: 100%;
+  display: flex;
   margin: auto;
   background-color: #ffffff;
   color: black;
 }
+
 button {
   --button-color: #212529;
   --button-bg-color: #ffd54f;
@@ -53,22 +40,15 @@ button {
 }
 
 .fes__image {
-  height: 200px;
   width: 200px;
-}
-
-.fes__title {
+  height: 200px;
   display: flex;
-  text-align: center;
 }
-
-
-.festival {
-  height: 100vh;
-  width: 50%;
+.fes__title {
+  font-size: 15px;
+}
+#festival {
   display: grid;
-  grid-gap: 4px;
-  grid-template-columns: repeat(8, 1fr);
-  align-items: center;
-  justify-content: space-between;
+
+  flex-wrap: wrap;
 }
