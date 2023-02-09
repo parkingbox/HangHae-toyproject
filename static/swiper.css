@@ -1,0 +1,89 @@
+html,
+body {
+  position: relative;
+  /* height: 100%; */
+}
+
+body {
+  background: black;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  /* font-size: 14px;
+  color: #000; */
+  margin: 0;
+  padding: 0;
+}
+
+
+
+/*슬라이드 공간 총 크기*/
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  /* background:  */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 포스터 이미지  */
+.swiper-slide img {
+  /* display: block; */
+  width: 40%;
+  height: 30%;
+  margin: 4% 0%;
+  /* object-fit: cover; */
+}
+
+
+
+/*일반 페이지바*/
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  border: 1px solid;
+  opacity: 1;
+}
+
+/*아래 페이지바 활성시*/
+.swiper-pagination-bullet-active {
+
+  width: 30px;
+  transition: width .5s;
+  border-radius: 5px;
+  background: #000000;
+  /* 협업 컬러 블랙 #000000 사용 */
+  border: 1px solid transparent;
+}
+
+/*  버튼 커스텀*/
+.swiper-button-next,
+.swiper-button-prev {
+  color: #FFD54F;
+  /* 협업 컬러 노랑사용 #FFD54F */
+
+}
+
+.slidearea {
+  background-color: #E1E3E6;
+
+  align-items: center;
+  max-width: 100%;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%; */
+}
+
+.swiper {
+  /* 협업 컬러 그레이  #E1E3E6 사용 */
+  /* background-color: #E1E3E6;
+  margin: 20%;
+  min-width: 500px; */
+  /* width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto; */
+}
