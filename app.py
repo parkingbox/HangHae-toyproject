@@ -55,22 +55,21 @@ def bucket_done():
 # 댓글 데이터 불러오기
 
 
-@app.route("/coment", methods=["POST"])
+@app.route("/comentshow", methods=["POST"])
 def coment_get():
-    contentid = request.form['contentid']
-    print(contentid, file=sys.stderr)
+    recive_contentid = request.form['give_contentid']
 
     coment_list = list(db.coment.find(
-        {'contentid': contentid}, {'_id': False}))
-    return jsonify({'coments': coment_list})
+        {'contentid': recive_contentid}, {'_id': False}))
+    return jsonify({'comentlist': coment_list})
 
 # 삭재버튼
 
 
-@app.route("/bucket/delete", methods=["POST"])
+@app.route("/coment/delete", methods=["POST"])
 def bucket_delete():
     deletenum_receive = request.form["deletenum_give"]
-    db.bucket.delete_one({'num': int(deletenum_receive)})
+    db.coment.delete_one({'num': int(deletenum_receive)})
     return jsonify({'msg': '삭재완료!'})
 
 

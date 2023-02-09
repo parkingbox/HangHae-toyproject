@@ -13,6 +13,7 @@
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../static/css/detail.css">
+  <link rel="stylesheet" href="../static/CRUD.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9943d403d9bf3ae9286778e8bb29358b"></script>
   <script src="../static/js/detail.js"></script>
@@ -30,22 +31,38 @@
       $('#coment-list').empty()
       $.ajax({
         type: "POST",
-        url: "/coment",
-        data: { contentid: param },
+        url: "/comentshow",
+        data: { give_contentid: param },
         success: function (response) {
-          let rows = response['coment']
+          let rows = response['comentlist']
+          console.log(rows)
           for (let i = 0; i < rows.length; i++) {
             let coment = rows[i]['coment']
             let num = rows[i]['num']
             let contentid = rows[i]['contentid']
 
             let temp_html = `<li>
-        <h2>✅${coment}</h2>
-        <button onclick="done_bucket(5)" type="button" class="btn btn-outline-primary">완료!</button>
-      </li>`
+              <h2>✅${coment}</h2>
+              <button onclick="delete_coment(${num})" type="button" class="btn btn-outline-primary">삭재!</button>
+            </li>`
 
             $('#coment-list').append(temp_html)
           }
+        }
+      });
+    }
+    // 삭재
+    function delete_coment(num) {
+
+      $.ajax({
+        type: "POST",
+        url: "/coment/delete",
+        data: {
+          'deletenum_give': num
+        },
+        success: function (response) {
+          alert(response["msg"])
+          window.location.reload()
         }
       });
     }
