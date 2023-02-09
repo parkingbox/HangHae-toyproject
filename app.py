@@ -67,7 +67,7 @@ def data_post():
   
   return jsonify({'msg': '!!'})
 
-
+# detail
 @app.route("/detail/<param>")
 def detail(param):
     # print(param,file=sys.stderr)
@@ -79,6 +79,12 @@ def get_data(param):
     print(contentid,file=sys.stderr)
     detail_data = db.detail.find_one({'contentid': contentid},{'_id':False})
     return jsonify({'data': detail_data})
+
+# list
+@app.route("/list", methods=["GET"])
+def get_list():
+    list_data = list(db.detail.find({},{'_id':False}))
+    return jsonify({'list': list_data})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=4000, debug=True)
