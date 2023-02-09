@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Pretendard-Regular";
 }
 
 ul,
@@ -14,14 +15,16 @@ a {
 }
 
 .container {
-  display: flex;
-  justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
+
 .container #card-box .card.h-100 img {
-  height: 500px;
+  height: 200px;
+  width: 200px;
 }
+
+
 /*# sourceMappingURL=list_prac.css.map */
 #btn {
   background-color: #ffd54f;

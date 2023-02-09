@@ -10,6 +10,8 @@ function listing() {
     success: function (res) {
       list = res["list"];
       $("#btn").click(function () {
+        
+  $("#card-box").empty();
         let date = $("#date").val();
         const regex = /-/g;
         let date_str = date.replace(regex, "");
