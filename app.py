@@ -1,9 +1,22 @@
+import sys, json
+from flask import Flask, render_template, request, jsonify
 
+app = Flask(__name__)
+
+from pymongo import MongoClient
+import certifi
+ca = certifi.where()
+client = MongoClient('mongodb+srv://test:thals@cluster0.kbk9mgh.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
+db = client.gofestival
 
 # 이건잘 돌아감
 @app.route('/modify')
 def modify():
-   return render_template('modify.html')
+  return render_template('modify.html')
+
+@app.route('/crud')
+def crud():
+  return render_template('CRUD.html')
 
 @app.route("/bucket", methods=["POST"])
 def bucket_post():
@@ -32,7 +45,7 @@ def bucket_get():
     buckets_list = list(db.bucket.find({},{'_id':False}))
     return jsonify({'buckets':buckets_list})
 
-#삭재버튼
+# 삭재버튼
 @app.route("/bucket/delete", methods=["POST"])
 def bucket_delete():
     deletenum_receive = request.form["deletenum_give"]
@@ -48,33 +61,18 @@ def bucket_modify():
     db.bucket.update_one({'num': int(num_receive)}, {'$set': {'bucket': modify_receive}})
     return jsonify({'msg': '수정 완료!'})
 
-
-
-
-
-import sys, json
-from flask import Flask, render_template, request, jsonify
-
-app = Flask(__name__)
-
-from pymongo import MongoClient
-import certifi
-ca = certifi.where()
-client = MongoClient('mongodb+srv://test:thals@cluster0.kbk9mgh.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
-db = client.gofestival
-
 @app.route('/')
 def home():
   return render_template('list.html')
 
-@app.route('/')
-def home():
-  return render_template('index.html')
+# @app.route('/')
+# def home():
+#   return render_template('index.html')
 
 @app.route("/showdata", methods=["GET"])
 def festival_get():
-    festival_list = list(db.list.find({}, {'_id':False}))
-    return jsonify({'festivals': dumps(festival_list)})
+    festival_list = list(db.detail.find({}, {'_id':False}))
+    return jsonify({'festivals': json.dumps(festival_list)})
 
 @app.route('/login', methods=["POST"])
 def login():
