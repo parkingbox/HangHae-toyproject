@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swiper demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="../static/swiper.css">
+  <!-- Demo styles -->
+
+</head>
+
+<body>
+  <div class="slidearea">
+    <!-- Swiper바디 -->
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="https://i.pinimg.com/550x/99/c1/86/99c186e4a9f87edaa4e08b8b5c9b95af.jpg">
+        </div>
+        <div class="swiper-slide"><img src="https://www.danyang.go.kr/File/Download/06254fd6c8411c547f89d5da4063bdf1">
+        </div>
+        <div class="swiper-slide"><img src="http://www.jonghapnews.com/news/photo/201804/263085_157243_5839.jpg">
+        </div>
+        <div class="swiper-slide"><img src="https://i.pinimg.com/736x/81/23/8c/81238cadc2780dcbc5ddc61f5ab06238.jpg">
+        </div>
+
+
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+  </div>
+
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+</body>
+
+</html>
