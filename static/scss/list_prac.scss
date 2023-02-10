@@ -1,0 +1,17 @@
+@import "reset";
+
+.container {
+  width: 100%;
+  height: 100vh;
+  #card-box {
+    // img 꽉 채우게
+    .card.h-100 {
+      // display: flex;
+      // justify-content: space-between;
+      // align-items: center;
+      img {
+        height: 90%;
+      }
+    }
+  }
+}

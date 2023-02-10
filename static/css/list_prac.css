@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  background-color: #e1e3e6;
+  width: 100vw;
+  height: 100vh;
+}
+.container #card-box .card.h-100 img {
+  height: 90%;
+} /*# sourceMappingURL=list_prac.css.map */
+
+.btn_wrap {
+  display: flex;
+  justify-content: center;
+  width: 1000px;
+  height: 50px;
+}
+
+html,
+body {
+}
+
+body {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/*슬라이드 공간 총 크기*/
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 포스터 이미지  */
+.swiper-slide img {
+  width: 500px;
+  height: 500px;
+  margin: 4% 0%;
+}
+
+/*일반 페이지바*/
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  border: 1px solid;
+  opacity: 1;
+}
+
+/*아래 페이지바 활성시*/
+.swiper-pagination-bullet-active {
+  width: 30px;
+  transition: width 0.5s;
+  border-radius: 5px;
+  background: #000000;
+  border: 1px solid transparent;
+}
+
+/*  버튼 커스텀*/
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffd54f;
+}
+
+.slidearea {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  max-width: 100%;
+}
+
+.mySwiper {
+  width: 100%;
+}
+
+/*# sourceMappingURL=list_prac.css.map */
+#btn {
+  background-color: #ffd54f;
+  height: 40px;
+  width: 50px;
+  border-radius: 5px;
+  border: 0px solid;
+  cursor: pointer;
+  margin-top: 10px;
+}
+#btn:hover {
+  background-color: #ffc400;
+  scale: 1.1;
+}
+#date {
+  margin: 10px 5px 0 0;
+  height: 40px;
+  border: 1px solid #e1e3e6;
+  border-radius: 5px;
+}
